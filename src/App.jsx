@@ -1,15 +1,21 @@
-import './index.css';
-import Header from "./components/Header.jsx";
-import Sidebar from "./components/Sidebar.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
+import Tasks from "./pages/Tasks";
 
-function App() {
+
+const App = ()=> {
   return (
-    <div className="d-flex flex-column vh-100">
-      <Header />
-      <div className="d-flex flex-grow-1">
-        <Sidebar />
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="tasks" element={<Tasks />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 const Layout = ()=> {
   return (
-    <div className="d-flex min-vh-100 bg-secondary"> {/* Full height screen */}
+    <div className="d-flex vh-100 bg-secondary"> {/* Full height screen */}
       {/* Sidebar */}
       <div className="flex-shrink-0">
         <Sidebar />
