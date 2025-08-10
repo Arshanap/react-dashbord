@@ -5,7 +5,7 @@ const SearchInput = ({ value, onChange, placeholder })=> {
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="form-control bg-dark text-light border-0 rounded-pill shadow-sm"
+      className="form-control text-dark border-0 rounded-pill shadow-sm" // Changed 'text-light' to 'text-dark'
       style={{ maxWidth: "250px" }}
     />
   );
