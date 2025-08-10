@@ -20,12 +20,16 @@ const Dashboard = ()=> {
   return (
     <div className="row g-4">
       <div className="col-12 col-md-6">
-        <div className="bg-primary text-white p-4 rounded shadow-sm h-100">
+        <div className=" text-primary p-4 rounded shadow-sm h-100" 
+        style={{
+          background: "#89aade49"
+        }}
+        >
           <h2 className="mb-3 fw-bold">Sales</h2>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={data}>
-              <XAxis dataKey="month" stroke="#dee2e6" />
-              <YAxis stroke="#dee2e6" />
+              <XAxis dataKey="month" stroke="#0d6efd" />
+              <YAxis stroke="#0d6efd" />
               <Tooltip />
               <Line type="monotone" dataKey="sales" stroke="#0d6efd" />
             </LineChart>
@@ -34,12 +38,16 @@ const Dashboard = ()=> {
       </div>
 
       <div className="col-12 col-md-6">
-        <div className="bg-primary text-white p-4 rounded shadow-sm h-100">
+        <div className="bg- text-primary p-4 rounded shadow-sm h-100"
+        style={{
+          background: "#89aade49"
+        }}
+        >
           <h2 className="mb-3 fw-bold">Visits</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={data}>
-              <XAxis dataKey="month" stroke="#dee2e6" />
-              <YAxis stroke="#dee2e6" />
+              <XAxis dataKey="month" stroke="#0d6efd" />
+              <YAxis stroke="#0d6efd" />
               <Tooltip />
               <Bar dataKey="visits" fill="#198754" />
             </BarChart>
