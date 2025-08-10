@@ -6,6 +6,7 @@ const Tasks = () => {
   );
   const [title, setTitle] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [editTitle, setEditTitle] = useState("");
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -17,10 +18,23 @@ const Tasks = () => {
     setTitle("");
   };
 
-  const updateTask = (id, newTitle) =>
+  const startEdit = (task) => {
+    setEditingId(task.id);
+    setEditTitle(task.title);
+  };
+
+  const updateTask = () => {
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, title: newTitle } : t))
+      prev.map((t) => (t.id === editingId ? { ...t, title: editTitle } : t))
     );
+    setEditingId(null);
+    setEditTitle("");
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditTitle("");
+  };
 
   const deleteTask = (id) =>
     setTasks((prev) => prev.filter((t) => t.id !== id));
@@ -41,7 +55,6 @@ const Tasks = () => {
             font-size: 14px;
             padding: 6px 8px;
           }
-          /* Make task items stack vertically */
           .tasks-container .list-group-item {
             flex-direction: column;
             align-items: flex-start !important;
@@ -53,7 +66,7 @@ const Tasks = () => {
             gap: 6px;
           }
           .tasks-container .btn-group .btn {
-            flex: 1; /* Make buttons equal width */
+            flex: 1;
           }
         }
       `}</style>
@@ -77,38 +90,47 @@ const Tasks = () => {
             className="list-group-item d-flex justify-content-between align-items-center"
           >
             {editingId === t.id ? (
-              <input
-                defaultValue={t.title}
-                onBlur={(e) => {
-                  updateTask(t.id, e.target.value);
-                  setEditingId(null);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    updateTask(t.id, e.target.value);
-                    setEditingId(null);
-                  }
-                }}
-                autoFocus
-                className="form-control"
-              />
+              <>
+                <input
+                  value={editTitle}
+                  onChange={(e) => setEditTitle(e.target.value)}
+                  className="form-control me-2"
+                  style={{ flex: 1 }}
+                />
+                <div className="btn-group">
+                  <button
+                    onClick={updateTask}
+                    className="btn btn-sm btn-success"
+                  >
+                    Update
+                  </button>
+                  <button
+                    onClick={cancelEdit}
+                    className="btn btn-sm btn-secondary"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </>
             ) : (
-              <span>{t.title}</span>
+              <>
+                <span>{t.title}</span>
+                <div className="btn-group">
+                  <button
+                    onClick={() => startEdit(t)}
+                    className="btn btn-sm btn-outline-primary"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => deleteTask(t.id)}
+                    className="btn btn-sm btn-outline-danger"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </>
             )}
-            <div className="btn-group">
-              <button
-                onClick={() => setEditingId(t.id)}
-                className="btn btn-sm btn-outline-primary"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => deleteTask(t.id)}
-                className="btn btn-sm btn-outline-danger"
-              >
-                Delete
-              </button>
-            </div>
           </li>
         ))}
       </ul>

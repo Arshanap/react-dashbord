@@ -34,7 +34,10 @@ const Sidebar = () => {
   return (
     <>
       {isMobile && (
-        <div className="bg-primary text-white p-2">
+        <div className=" text-white p-2"
+        style={{margin: "10px",
+          borderRadius: "5px",
+          background: "#89aade49"}}>
           <button
             className="btn btn-sm btn-light"
             onClick={() => setIsOpen(!isOpen)}
@@ -45,11 +48,14 @@ const Sidebar = () => {
       )}
 
       <aside
-        className="bg-primary text-white p-2 p-md-3 h-100"
+        className="text-white p-2 p-md-3 h-100"
         style={{
           width: isMobile ? (isOpen ? "160px" : "50px") : "220px",
           transition: "width 0.3s ease",
           overflow: "hidden",
+          margin: "10px",
+          borderRadius: "5px",
+          background: "#89aade49"
         }}
       >
         <nav>
@@ -60,8 +66,8 @@ const Sidebar = () => {
                   to={link.path}
                   className={`nav-link fw-semibold ${
                     location.pathname === link.path
-                      ? "active bg-info text-white rounded"
-                      : "text-white-50"
+                      ? "active bg-primary text-white rounded"
+                      : ""
                   }`}
                   style={{
                     fontSize: "clamp(0.8rem, 1.2vw, 1rem)",

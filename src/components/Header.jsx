@@ -1,6 +1,9 @@
 const Header = () => {
   return (
-    <header className="bg-primary text-white shadow-sm py-3 px-4 d-flex align-items-center justify-content-between">
+    <header className="text-primary shadow-sm py-3 px-4 d-flex align-items-center justify-content-between"
+    style={{ marginTop: "10px", 
+      borderRadius: "5px",
+          background: "#89aade49" }}>
       <h1 className="header-title mb-0 fw-bold">React Dashboard</h1>
       <style>
         {`
