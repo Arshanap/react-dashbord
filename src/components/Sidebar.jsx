@@ -13,22 +13,26 @@ const Sidebar = () => {
     { name: "Tasks", path: "/tasks" },
   ];
 
-  // Detect screen resize to switch between mobile & desktop
   useEffect(() => {
-    const handleResize = () => {
-      const mobileView = window.innerWidth <= 425;
-      setIsMobile(mobileView);
-      if (!mobileView) {
-        setIsOpen(true); // Always open on desktop
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const checkMobile = () => {
+    const mobileView = window.innerWidth <= 425;
+    setIsMobile(mobileView);
+
+    setIsOpen((prevOpen) => {
+      if (!mobileView && isMobile) return true;
+      return prevOpen;
+    });
+  };
+
+  checkMobile();
+  window.addEventListener("resize", checkMobile);
+
+  return () => window.removeEventListener("resize", checkMobile);
+}, [location.pathname, isMobile]);
+
 
   return (
     <>
-      {/* Toggle button only for mobile */}
       {isMobile && (
         <div className="bg-primary text-white p-2">
           <button
@@ -65,7 +69,7 @@ const Sidebar = () => {
                     whiteSpace: "nowrap",
                   }}
                 >
-                  {isOpen ? link.name : link.name.charAt(0)} {/* Icon mode */}
+                  {isOpen ? link.name : link.name.charAt(0)}
                 </Link>
               </li>
             ))}

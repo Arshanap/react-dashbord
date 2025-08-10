@@ -19,7 +19,6 @@ const data = [
 const Dashboard = ()=> {
   return (
     <div className="row g-4">
-      {/* Sales Chart */}
       <div className="col-12 col-md-6">
         <div className="bg-primary text-white p-4 rounded shadow-sm h-100">
           <h2 className="mb-3 fw-bold">Sales</h2>
@@ -34,7 +33,6 @@ const Dashboard = ()=> {
         </div>
       </div>
 
-      {/* Visits Chart */}
       <div className="col-12 col-md-6">
         <div className="bg-primary text-white p-4 rounded shadow-sm h-100">
           <h2 className="mb-3 fw-bold">Visits</h2>

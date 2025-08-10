@@ -9,6 +9,7 @@ const Header = () => {
           }
 
           @media (min-width: 768px) {
+            
             .header-title {
               font-size: 1.5rem; /* bigger title on md+ */
             }

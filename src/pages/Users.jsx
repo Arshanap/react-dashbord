@@ -4,10 +4,12 @@ import SearchInput from "../components/SearchInput";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-// New component for the styled table that will be used for PDF export
 const UsersTable = ({ filteredUsers }) => (
   <div className="pdf-table-container">
-    <table id="user-table-pdf" className="table table-striped table-bordered table-hover">
+    <table
+      id="user-table-pdf"
+      className="table table-striped table-bordered table-hover"
+    >
       <thead className="table-dark">
         <tr>
           <th>Name</th>
@@ -55,9 +57,8 @@ const Users = () => {
   );
 
   const exportPDF = async () => {
-    // We now use the new, styled table for the PDF
     const el = document.getElementById("user-table-pdf");
-    const canvas = await html2canvas(el, { scale: 2 }); // Increase scale for better quality
+    const canvas = await html2canvas(el, { scale: 2 });
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "pt", "a4");
     const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -68,9 +69,49 @@ const Users = () => {
   };
 
   return (
-    <div className="container py-3">
-      {/* Search and download with improved responsiveness */}
-      <div className="d-flex flex-column flex-md-row align-items-md-center gap-2 mb-3">
+    <div className="container py-3 users-container">
+      <style>{`
+        .users-list-mobile {
+          display: none;
+        }
+        @media (max-width: 786px) {
+          .users-container {
+            padding: 10px;
+          }
+          .users-container .btn {
+            font-size: 14px;
+            padding: 6px 10px;
+          }
+          input[type="text"], .form-control {
+            font-size: 14px;
+            padding: 6px;
+          }
+          .users-table-desktop {
+            display: none;
+          }
+          .users-list-mobile {
+            display: block;
+          }
+          .user-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            font-size: 14px;
+            overflow-wrap: break-word;
+          }
+          .user-card p {
+            margin: 4px 0;
+          }
+          .search-bar {
+          color: red;
+          }
+        }
+      `}</style>
+
+      <div className="search-bar d-flex flex-column flex-md-row align-items-md-center gap-2 mb-3">
         <div className="flex-grow-1">
           <SearchInput
             value={q}
@@ -83,8 +124,7 @@ const Users = () => {
         </button>
       </div>
 
-      {/* Visually improved table for the UI */}
-      <div className="table-responsive">
+      <div className="table-responsive users-table-desktop">
         <table className="table table-hover table-striped">
           <thead className="table-dark">
             <tr>
@@ -107,12 +147,22 @@ const Users = () => {
         </table>
       </div>
 
-      {/* This table is only for generating the PDF. It's hidden from the UI. */}
-      <div style={{ position: 'absolute', left: '-9999px' }}>
+      <div className="users-list-mobile">
+        {filtered.map((u) => (
+          <div key={u.id} className="user-card">
+            <p><strong>Name:</strong> {u.name}</p>
+            <p><strong>Email:</strong> {u.email}</p>
+            <p><strong>Company:</strong> {u.company.name}</p>
+            <p><strong>City:</strong> {u.address.city}</p>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ position: "absolute", left: "-9999px" }}>
         <UsersTable filteredUsers={filtered} />
       </div>
     </div>
   );
-}
+};
 
 export default Users;
